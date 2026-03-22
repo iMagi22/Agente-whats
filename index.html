@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapatin - Diagrama de Flujo Técnico</title>
+    <title>Chapatin - Diagrama de Flujo Corregido</title>
     <style>
         * {
             margin: 0;
@@ -40,12 +40,6 @@
             text-shadow: 0 0 30px rgba(255,255,255,0.5);
         }
 
-        .header p {
-            font-size: 1.2em;
-            opacity: 0.9;
-        }
-
-        /* DIAGRAMA DE FLUJO ESTILO TÉCNICO */
         .flowchart {
             display: flex;
             flex-direction: column;
@@ -71,7 +65,6 @@
             box-shadow: 0 15px 40px rgba(0,0,0,0.4);
         }
 
-        /* TIPOS DE CAJAS */
         .start { border-color: #25D366; background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); }
         .process { border-color: #2196F3; background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); }
         .decision { border-color: #FF9800; background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-radius: 50px; }
@@ -79,6 +72,7 @@
         .warning { border-color: #f44336; background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); }
         .action { border-color: #9C27B0; background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); }
         .human { border-color: #FF5722; background: linear-gradient(135deg, #ffccbc 0%, #ffab91 100%); }
+        .quick { border-color: #00BCD4; background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); }
 
         .box-title {
             font-size: 1.4em;
@@ -97,7 +91,6 @@
             border: 2px dashed rgba(0,0,0,0.1);
         }
 
-        /* CHAT BUBBLES */
         .chat {
             background: #DCF8C6;
             padding: 15px;
@@ -114,7 +107,6 @@
             margin-bottom: 8px;
         }
 
-        /* FLECHAS */
         .arrow-container {
             display: flex;
             flex-direction: column;
@@ -133,7 +125,6 @@
             50% { transform: translateY(10px); }
         }
 
-        /* BIFURCACIÓN */
         .split-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -171,7 +162,20 @@
             .split-container::after { display: none; }
         }
 
-        /* OPCIONES */
+        .triple-split {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        @media (max-width: 768px) {
+            .triple-split {
+                grid-template-columns: 1fr;
+            }
+        }
+
         .options {
             display: flex;
             flex-wrap: wrap;
@@ -194,8 +198,8 @@
         .opt-orange { border-color: #FF9800; color: #ef6c00; }
         .opt-blue { border-color: #2196F3; color: #1565c0; }
         .opt-purple { border-color: #9C27B0; color: #6a1b9a; }
+        .opt-cyan { border-color: #00BCD4; color: #00838f; }
 
-        /* BLOQUES DE FILTRO DETALLADOS */
         .filter-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -234,7 +238,6 @@
             border: 1px solid #ddd;
         }
 
-        /* CONECTOR */
         .connector {
             width: 100%;
             display: flex;
@@ -253,7 +256,6 @@
             margin: 0 auto;
         }
 
-        /* BADGES */
         .badge {
             display: inline-block;
             padding: 5px 15px;
@@ -270,8 +272,8 @@
         .badge-blue { background: #2196F3; }
         .badge-purple { background: #9C27B0; }
         .badge-gold { background: #FFD700; color: #333; }
+        .badge-cyan { background: #00BCD4; }
 
-        /* NOTIFICACIÓN */
         .notification {
             background: linear-gradient(135deg, #ff5722 0%, #d84315 100%);
             color: white;
@@ -283,7 +285,6 @@
             box-shadow: 0 5px 20px rgba(255,87,34,0.4);
         }
 
-        /* DESTACADO */
         .highlight {
             background: linear-gradient(120deg, #ffd700 0%, #ffeb3b 100%);
             padding: 3px 10px;
@@ -302,7 +303,6 @@
             font-weight: bold;
         }
 
-        /* RESULTADOS */
         .results-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -325,21 +325,29 @@
         .result-partial { background: #ffe0b2; border-color: #ff9800; }
         .result-none { background: #ffcdd2; border-color: #f44336; }
 
-        /* FINAL */
         .end-box {
             background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
             color: white;
             text-align: center;
             font-size: 1.3em;
         }
+
+        .path-label {
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin: 10px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
     </style>
-<base target="_blank">
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h1>🏠 Soy Chapatin! 🤖</h1>
-            <p>Diagrama de Flujo Técnico - Sistema de Filtrado GabiRentals</p>
+            <p>Diagrama de Flujo Técnico - GabiRentals</p>
         </div>
 
         <div class="flowchart">
@@ -347,14 +355,14 @@
             <!-- INICIO -->
             <div class="box start">
                 <div class="box-title">
-                    <span>👋</span> INICIO: Cliente llega por WhatsApp desde Link con ID
+                    <span>👋</span> INICIO: Cliente llega desde Link con ID
                 </div>
                 <div class="warning-box">
-                    ⚠️ El cliente viene de un link de Facebook/Marketplace con ID de propiedad específica<br>
-                    Ejemplo: <code>gabirentals.com/loft-milenio-iii-01</code>
+                    ⚠️ Cliente viene de link: <code>gabirentals.com/loft-milenio-iii-01</code><br>
+                    Chapatin detecta automáticamente: <strong>Zona = Milenio III, ID = 01</strong>
                 </div>
                 <div class="chat">
-                    <div class="chat-label">🤖 Chapatin detecta ID automáticamente:</div>
+                    <div class="chat-label">🤖 Chapatin:</div>
                     <strong>¡Hola! Soy Chapatin! 🏠✨</strong><br>
                     Veo que te interesa el departamento en <strong>Milenio III, Querétaro</strong><br>
                     Déjame revisar si está disponible...
@@ -368,17 +376,17 @@
             <!-- DECISIÓN PRINCIPAL -->
             <div class="box decision">
                 <div class="box-title">
-                    <span>🔍</span> DECISIÓN: ¿La propiedad está disponible?
+                    <span>🔍</span> ¿La propiedad está disponible?
                 </div>
                 <div class="box-content">
-                    <strong>Consulta a Base de Datos (Google Drive):</strong><br>
+                    <strong>Consulta a Google Drive:</strong><br>
                     <code style="background: #f5f5f5; padding: 10px; border-radius: 5px; display: block; margin: 10px 0;">
                         SELECT disponible FROM propiedades WHERE id = 'milenio-iii-01'
                     </code>
                 </div>
             </div>
 
-            <!-- BIFURCACIÓN -->
+            <!-- BIFURCACIÓN PRINCIPAL -->
             <div class="split-container">
                 
                 <!-- RAMA IZQUIERDA: SÍ DISPONIBLE -->
@@ -389,60 +397,41 @@
                         <div class="box-title">
                             <span>✅</span> SÍ ESTÁ DISPONIBLE
                         </div>
-                        <span class="badge badge-green">FLUJO RÁPIDO - SIN FILTROS</span>
+                        <span class="badge badge-green">FLUJO RÁPIDO</span>
                         
                         <div class="chat" style="margin-top: 15px;">
-                            <div class="chat-label">🤖 Chapatin responde inmediatamente:</div>
+                            <div class="chat-label">🤖 Chapatin:</div>
                             <strong>¡BUENAS NOTICIAS! 🎉</strong><br><br>
                             📍 <strong>Loft Moderno en Milenio III</strong><br>
                             💰 <span class="highlight">$8,500/mes</span><br>
-                            🛏️ 2 recámaras amuebladas<br>
-                            🐶 Pet Friendly sin costo extra<br>
-                            🏪 A 2 min del Oxxo, 5 min de rutas<br>
-                            🏢 Incluye Gym y Roof Garden<br><br>
-                            [📸 FOTOS DEL DEPARTAMENTO]<br><br>
+                            🛏️ 2 recámaras | 🐶 Pet Friendly<br>
+                            🏪 Cerca de tiendas y transporte<br><br>
+                            [📸 FOTOS]<br><br>
                             <strong>¿Te gustaría agendar una visita?</strong>
                         </div>
 
                         <div class="options">
-                            <div class="option opt-green">✅ ¡SÍ, QUIERO AGENDAR!</div>
-                            <div class="option opt-orange">🔍 Ver otras opciones similares</div>
+                            <div class="option opt-green">✅ ¡SÍ, QUIERO!</div>
+                            <div class="option opt-orange">🔍 Ver otras opciones</div>
                         </div>
 
                         <!-- SI DICE SÍ -->
                         <div class="box-content" style="margin-top: 20px; border-color: #4CAF50;">
-                            <strong>Si elige "SÍ, QUIERO AGENDAR":</strong>
+                            <strong>Si elige "SÍ, QUIERO":</strong>
                             <div class="chat" style="background: #c8e6c9;">
                                 <div class="chat-label">🤖 Chapatin:</div>
-                                <strong>¡Perfecto! 🥳</strong><br><br>
-                                📅 <strong>¿Qué día prefieres?</strong><br>
-                                • Hoy • Mañana • Este fin de semana<br><br>
-                                🕐 <strong>¿Qué horario?</strong><br>
-                                • 🌅 Mañana (9am - 12pm)<br>
-                                • 🌞 Tarde (2pm - 6pm)<br>
-                                • 🌙 Noche (6pm - 8pm)
+                                <strong>¡Perfecto! 🥳</strong><br>
+                                📅 ¿Qué día? 🕐 ¿Qué hora?
                             </div>
-
                             <div class="notification">
-                                <strong>📲 NOTIFICACIÓN A GABI (Humano):</strong><br><br>
-                                ╔══════════════════════════════════╗<br>
-                                ║ 🔥🔥🔥 LEAD CALIENTE 🔥🔥🔥 ║<br>
-                                ╠══════════════════════════════════╣<br>
-                                ║ 👤 Cliente: [Nombre WhatsApp] ║<br>
-                                ║ 📱 Tel: 442-XXX-XXXX ║<br>
-                                ║ 📍 Propiedad: milenio-iii-01 ║<br>
-                                ║ 💰 Precio: $8,500/mes ║<br>
-                                ║ ✅ Disponible y confirmado ║<br>
-                                ║ 📅 Cita solicitada: [Día/Hora] ║<br>
-                                ╚══════════════════════════════════╝<br><br>
-                                <strong>→ Gabi confirma cita directamente por WhatsApp</strong>
+                                📲 Gabi recibe notificación → Confirma cita
                             </div>
                         </div>
 
                         <!-- SI DICE NO -->
                         <div class="box-content" style="margin-top: 15px; border-color: #FF9800;">
                             <strong>Si elige "Ver otras opciones":</strong><br>
-                            ➡️ Ir a <strong>AGENTE 2: FILTRADO INTELIGENTE</strong> (6 bloques)
+                            ➡️ Ir a <strong>DECISIÓN: ¿Dónde buscar?</strong>
                         </div>
                     </div>
                 </div>
@@ -453,56 +442,163 @@
                     
                     <div class="box warning">
                         <div class="box-title">
-                            <span>❌</span> NO ESTÁ DISPONIBLE (Ya rentada)
+                            <span>❌</span> NO ESTÁ DISPONIBLE
                         </div>
-                        <span class="badge badge-red">FLUJO DE FILTRADO</span>
+                        <span class="badge badge-red">YA FUE RENTADA</span>
                         
                         <div class="chat" style="background: #ffcdd2; margin-top: 15px;">
-                            <div class="chat-label">🤖 Chapatin responde:</div>
-                            <strong>Lo siento mucho... 😔</strong><br><br>
-                            El departamento en <strong>Milenio III</strong> que viste<br>
-                            <strong>YA FUE RENTADO</strong> recientemente.<br><br>
-                            ¡PERO no te preocupes! Te ayudo a encontrar<br>
-                            algo igual o mejor para ti 🎯
+                            <div class="chat-label">🤖 Chapatin:</div>
+                            <strong>Lo siento... 😔</strong><br>
+                            Esta propiedad <strong>YA FUE RENTADA</strong><br><br>
+                            ¡PERO te ayudo a encontrar algo! 🎯
                         </div>
 
-                        <div class="box-content" style="margin-top: 15px;">
-                            <strong>Chapatin pregunta:</strong>
-                            <div class="chat">
-                                <div class="chat-label">🤖 Chapatin:</div>
-                                ¿Qué prefieres hacer?<br><br>
-                                <strong>A)</strong> Buscar algo similar en <strong>MILENIO III</strong><br>
-                                <strong>B)</strong> Explorar <strong>otras zonas</strong> de Querétaro
-                            </div>
-                            
-                            <div class="options">
-                                <div class="option opt-green">🏠 Similar en Milenio III</div>
-                                <div class="option opt-blue">🗺️ Explorar otras zonas</div>
-                            </div>
-
-                            <div style="margin-top: 15px; padding: 15px; background: #e3f2fd; border-radius: 10px;">
-                                <strong>Las dos opciones llevan a:</strong><br>
-                                ⬇️<br>
-                                <strong>AGENTE 2: FILTRADO INTELIGENTE</strong>
-                            </div>
+                        <div style="margin-top: 15px; padding: 15px; background: #ffebee; border-radius: 10px;">
+                            <strong>➡️ Ir directo a:</strong><br>
+                            <strong>DECISIÓN: ¿Dónde buscar?</strong>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- CONVERGENCIA: DECISIÓN DE BÚSQUEDA -->
             <div class="connector">
-                ⬇️ AMBAS RAMAS CONVERGEN AQUÍ ⬇️
+                ⬇️ AMBAS RAMAS LLEGAN AQUÍ ⬇️
             </div>
 
-            <!-- AGENTE 2: FILTRADO -->
-            <div class="box action">
+            <div class="box decision">
                 <div class="box-title">
-                    <span>🎛️</span> AGENTE 2: FILTRADO INTELIGENTE (6 Bloques Obligatorios)
+                    <span>🗺️</span> DECISIÓN: ¿Dónde buscar alternativas?
+                </div>
+                <div class="chat">
+                    <div class="chat-label">🤖 Chapatin pregunta:</div>
+                    <strong>¿Qué prefieres?</strong><br><br>
+                    Buscar algo <strong>cerca de Milenio III</strong><br>
+                    o prefieres <strong>otra zona</strong> diferente?
                 </div>
                 
+                <div class="triple-split" style="margin-top: 20px;">
+                    <!-- OPCIÓN A -->
+                    <div class="box quick" style="margin: 0;">
+                        <div class="path-label">🚀 OPCIÓN A</div>
+                        <h4>🏠 Cerca de Milenio III</h4>
+                        <div class="chat" style="font-size: 0.9em;">
+                            <div class="chat-label">Acción:</div>
+                            Buscar en BD propiedades en:<br>
+                            • Milenio I<br>
+                            • Milenio II<br>
+                            • Milenio III<br>
+                            • Zona cercana (5km)
+                        </div>
+                        <span class="badge badge-cyan">BÚSQUEDA DIRECTA</span>
+                        <div style="margin-top: 15px; font-size: 0.9em;">
+                            <strong>➡️ Va a:</strong><br>
+                            Propone opciones disponibles<br>
+                            (Similar a "Sí disponible")
+                        </div>
+                    </div>
+
+                    <!-- OPCIÓN B -->
+                    <div class="box action" style="margin: 0;">
+                        <div class="path-label">🎛️ OPCIÓN B</div>
+                        <h4>🗺️ Otra zona diferente</h4>
+                        <div class="chat" style="font-size: 0.9em;">
+                            <div class="chat-label">Acción:</div>
+                            Iniciar filtrado completo<br>
+                            para entender qué busca<br>
+                            en nueva zona
+                        </div>
+                        <span class="badge badge-purple">6 BLOQUES</span>
+                        <div style="margin-top: 15px; font-size: 0.9em;">
+                            <strong>➡️ Va a:</strong><br>
+                            Agente 2: Filtrado Inteligente
+                        </div>
+                    </div>
+
+                    <!-- COMPARACIÓN -->
+                    <div style="background: #f5f5f5; padding: 20px; border-radius: 15px; margin: 0;">
+                        <h4>📊 Diferencia clave:</h4>
+                        <ul style="text-align: left; font-size: 0.9em; line-height: 1.8;">
+                            <li><strong>Opción A:</strong> Ya sabe zona (Milenio), solo busca disponibles y propone</li>
+                            <li><strong>Opción B:</strong> No sabe nada, necesita 6 bloques para perfilar</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RAMA A: BÚSQUEDA RÁPIDA EN MILENIO -->
+            <div class="arrow-container">
+                <div class="arrow-down">⬇️</div>
+                <div class="path-label">🚀 SI ELIGE "CERCA DE MILENIO III"</div>
+            </div>
+
+            <div class="box quick">
+                <div class="box-title">
+                    <span>⚡</span> BÚSQUEDA RÁPIDA EN ZONA MILENIO
+                </div>
+                <span class="badge badge-cyan">SIN 6 BLOQUES - ZONA YA CONOCIDA</span>
+                
+                <div class="box-content">
+                    <strong>Chapatin consulta BD:</strong><br>
+                    <code style="background: #e0f7fa; padding: 10px; border-radius: 5px; display: block; margin: 10px 0;">
+                        SELECT * FROM propiedades <br>
+                        WHERE zona IN ('Milenio I', 'Milenio II', 'Milenio III') <br>
+                        AND disponible = true <br>
+                        ORDER BY precio ASC
+                    </code>
+                </div>
+
+                <div class="chat" style="background: #e0f7fa;">
+                    <div class="chat-label">🤖 Chapatin encuentra y propone:</div>
+                    <strong>¡Encontré opciones en Milenio! 🎉</strong><br><br>
+                    
+                    <div style="background: white; padding: 15px; border-radius: 10px; margin: 10px 0;">
+                        <strong>📍 Opción 1: Loft Milenio II</strong><br>
+                        💰 $8,200/mes | 🛏️ 2 rec | 🐶 Sí<br>
+                        📸 [FOTOS]<br>
+                        <div class="options" style="margin-top: 10px;">
+                            <div class="option opt-green">✅ Me interesa</div>
+                            <div class="option opt-orange">🔍 Ver otra</div>
+                        </div>
+                    </div>
+
+                    <div style="background: white; padding: 15px; border-radius: 10px; margin: 10px 0;">
+                        <strong>📍 Opción 2: Depto Milenio I</strong><br>
+                        💰 $9,000/mes | 🛏️ 2 rec | 🐶 Sí<br>
+                        📸 [FOTOS]<br>
+                        <div class="options" style="margin-top: 10px;">
+                            <div class="option opt-green">✅ Me interesa</div>
+                            <div class="option opt-orange">🔍 Ver otra</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box-content" style="margin-top: 15px; border-color: #00BCD4;">
+                    <strong>Flujo de decisión:</strong>
+                    <ul style="margin-top: 10px; line-height: 1.8;">
+                        <li>Si elige <strong>"Me interesa"</strong> → Agendar cita → Gabi confirma</li>
+                        <li>Si elige <strong>"Ver otra"</strong> → Muestra siguiente opción</li>
+                        <li>Si <strong>no hay más opciones</strong> → "¿Quieres que busque en otras zonas?" → Va a 6 bloques</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- DIVISOR -->
+            <div class="connector" style="font-size: 2em; margin: 30px 0;">
+                ⬇️ O ⬇️
+            </div>
+
+            <!-- RAMA B: 6 BLOQUES -->
+            <div class="path-label">🎛️ SI ELIGE "OTRA ZONA" (O NO HAY MÁS EN MILENIO)</div>
+
+            <div class="box action">
+                <div class="box-title">
+                    <span>🎛️</span> AGENTE 2: FILTRADO INTELIGENTE (6 Bloques)
+                </div>
+                <span class="badge badge-purple">PERFILADO COMPLETO</span>
+                
                 <div class="warning-box">
-                    ⚠️ IMPORTANTE: Chapatin DEBE hacer las 6 preguntas ANTES de proponer cualquier propiedad.<br>
-                    La IA analiza TODOS los criterios juntos para encontrar el mejor match.
+                    ⚠️ Chapatin NO sabe qué zona ni qué prefiere. DEBE hacer las 6 preguntas para perfilar antes de proponer.
                 </div>
 
                 <div class="filter-grid">
@@ -527,7 +623,7 @@
                         <h4>💰 BLOQUE 2<br>PRESUPUESTO</h4>
                         <div class="chat" style="font-size: 0.9em;">
                             <div class="chat-label">Chapatin:</div>
-                            ¿Cuánto pagarás mensual?
+                            ¿Cuánto pagarás?
                         </div>
                         <div class="filter-options">
                             <div class="filter-option">💎 Más de $20,000</div>
@@ -544,7 +640,7 @@
                         <h4>🛏️ BLOQUE 3<br>RECÁMARAS</h4>
                         <div class="chat" style="font-size: 0.9em;">
                             <div class="chat-label">Chapatin:</div>
-                            ¿Cuántas recámaras?
+                            ¿Cuántas necesitas?
                         </div>
                         <div class="filter-options">
                             <div class="filter-option">🛏️ 1 recámara</div>
@@ -573,10 +669,10 @@
                         <div class="chat" style="font-size: 0.9em;">
                             <div class="chat-label">Chapatin:</div>
                             ¿Qué necesitas cerca?<br>
-                            <small>(Puedes elegir varias)</small>
+                            <small>(Elige varias)</small>
                         </div>
                         <div class="filter-options">
-                            <div class="filter-option">🏪 Tiendas (Oxxo, 7Eleven)</div>
+                            <div class="filter-option">🏪 Tiendas (Oxxo, Locales)</div>
                             <div class="filter-option">🚌 Transporte público</div>
                             <div class="filter-option">🎓 Escuelas/Universidades</div>
                         </div>
@@ -596,10 +692,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div style="text-align: center; margin-top: 20px; font-size: 1.2em;">
-                    ⬇️ Una vez completados los 6 bloques ⬇️
-                </div>
             </div>
 
             <div class="arrow-container">
@@ -607,25 +699,21 @@
             </div>
 
             <!-- ANÁLISIS IA -->
-            <div class="box action">
+            <div class="box process">
                 <div class="box-title">
-                    <span>🧠</span> ANÁLISIS CON IA (Claude/OpenAI)
+                    <span>🧠</span> ANÁLISIS CON IA
                 </div>
                 <div class="box-content" style="background: linear-gradient(135deg, #e1bee7 0%, #ce93d8 100%);">
-                    <strong>Chapatin procesa toda la información:</strong><br><br>
-                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; font-size: 0.9em;">
-                        <div style="background: white; padding: 10px; border-radius: 10px;">📍 Zona: Milenio III</div>
-                        <div style="background: white; padding: 10px; border-radius: 10px;">💰 Presupuesto: $8,000-$10,000</div>
-                        <div style="background: white; padding: 10px; border-radius: 10px;">🛏️ Recámaras: 2</div>
-                        <div style="background: white; padding: 10px; border-radius: 10px;">🐶 Pet Friendly: SÍ</div>
-                        <div style="background: white; padding: 10px; border-radius: 10px;">🏪 Servicios: Tiendas + Transporte</div>
-                        <div style="background: white; padding: 10px; border-radius: 10px;">🏘️ Tipo: Departamental</div>
+                    <strong>Chapatin analiza los 6 datos:</strong><br>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 15px 0; font-size: 0.9em;">
+                        <div style="background: white; padding: 10px; border-radius: 10px;">📍 Zona: [Seleccionada]</div>
+                        <div style="background: white; padding: 10px; border-radius: 10px;">💰 Presupuesto: [Rango]</div>
+                        <div style="background: white; padding: 10px; border-radius: 10px;">🛏️ Recámaras: [Número]</div>
+                        <div style="background: white; padding: 10px; border-radius: 10px;">🐶 Pet Friendly: [Sí/No]</div>
+                        <div style="background: white; padding: 10px; border-radius: 10px;">🏪 Servicios: [Selección]</div>
+                        <div style="background: white; padding: 10px; border-radius: 10px;">🏘️ Tipo: [Ambiente]</div>
                     </div>
-                    <br>
-                    <strong>Algoritmo de scoring:</strong><br>
-                    • Must-have (Pet Friendly, Precio, Recámaras): <strong>50%</strong><br>
-                    • Nice-to-have (Servicios, Tipo zona): <strong>30%</strong><br>
-                    • Ubicación exacta: <strong>20%</strong>
+                    <strong>Busca match con scoring:</strong> Must-have 50% + Nice 30% + Ubicación 20%
                 </div>
             </div>
 
@@ -640,73 +728,64 @@
                 </div>
 
                 <div class="results-grid">
-                    <!-- ESCENARIO 1 -->
+                    <!-- MATCH PERFECTO -->
                     <div class="result-box result-perfect">
-                        <span class="badge badge-gold">🎯 MATCH PERFECTO 90%+</span>
+                        <span class="badge badge-gold">🎯 MATCH 90%+</span>
                         <div class="chat" style="margin-top: 15px; text-align: left; font-size: 0.9em;">
                             <div class="chat-label">Chapatin:</div>
-                            <div style="text-align: center; font-size: 1.3em; margin: 10px 0;">
-                                🎉🎉🎉<br>
-                                <strong>¡ENCONTRÉ TU<br>HOGAR IDEAL!</strong><br>
-                                🏠✨
+                            <div style="text-align: center; font-size: 1.2em; margin: 10px 0;">
+                                🎉 <strong>¡ENCONTRÉ TU HOGAR IDEAL!</strong> 🏠
                             </div>
-                            📍 <strong>Loft "Milenio Dream"</strong><br>
-                            💰 $8,500/mes<br>
-                            🛏️ 2 recámaras | 🐶 Pet OK<br>
-                            🏪 Oxxo 2min | 🚌 Rutas 5min<br>
-                            🏢 Gym + Roof garden<br><br>
+                            📍 [Propiedad perfecta]<br>
+                            💰 [Precio] | 🛏️ [Recámaras]<br>
+                            🐶 [Pet] | 🏪 [Servicios]<br><br>
                             <strong>¿Quieres conocerlo? 😍</strong>
                         </div>
                         <div style="margin-top: 15px;">
-                            <div class="option opt-green" style="margin: 5px;">✅ ¡SÍ, AGENDAR!</div>
-                            <div class="option opt-orange" style="margin: 5px;">🔍 Otra opción</div>
+                            <div class="option opt-green">✅ ¡SÍ, AGENDAR!</div>
+                            <div class="option opt-orange">🔍 Otra opción</div>
                         </div>
                         <div style="margin-top: 15px; font-size: 0.85em; background: #fff; padding: 10px; border-radius: 10px;">
-                            <strong>Si SÍ:</strong> Agendar cita → Gabi confirma<br>
-                            <strong>Si NO:</strong> ¿Hay más? → Sí: Mostrar otra → No: Escalar a Gabi
+                            Si SÍ → Agendar → Gabi<br>
+                            Si NO → ¿Hay más? → Sí: Otra → No: Escalar
                         </div>
                     </div>
 
-                    <!-- ESCENARIO 2 -->
+                    <!-- MATCH PARCIAL -->
                     <div class="result-box result-partial">
-                        <span class="badge badge-orange">⚠️ MATCH PARCIAL 70-89%</span>
+                        <span class="badge badge-orange">⚠️ MATCH 70-89%</span>
                         <div class="chat" style="margin-top: 15px; text-align: left; font-size: 0.9em;">
                             <div class="chat-label">Chapatin:</div>
-                            <strong>👀 Opción similar encontrada</strong><br>
-                            <span style="background: #ff9800; color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.8em;">85% compatible</span><br><br>
-                            📍 Depto en Milenio II<br>
-                            💰 $9,200/mes<br>
-                            🛏️ 2 recámaras<br>
-                            🐶 Pet Friendly<br>
-                            ✅ Cerca de todo<br><br>
+                            <strong>👀 Opción similar (85%)</strong><br><br>
+                            📍 [Propiedad similar]<br>
+                            💰 [Precio] | 🛏️ [Recámaras]<br>
+                            ✅ [Características]<br><br>
                             <strong>¿Te interesa?</strong>
                         </div>
                         <div style="margin-top: 15px;">
-                            <div class="option opt-orange" style="margin: 5px;">✅ Me interesa</div>
-                            <div class="option opt-red" style="margin: 5px;">🔍 Buscar más</div>
+                            <div class="option opt-orange">✅ Me interesa</div>
+                            <div class="option opt-red">🔍 Buscar más</div>
                         </div>
                         <div style="margin-top: 15px; font-size: 0.85em; background: #fff; padding: 10px; border-radius: 10px;">
-                            <strong>Si SÍ:</strong> Agendar cita<br>
-                            <strong>Si NO:</strong> Buscar más opciones → Si no hay → Escalar a Gabi
+                            Si SÍ → Agendar<br>
+                            Si NO → Más opciones → Si no hay → Escalar
                         </div>
                     </div>
 
-                    <!-- ESCENARIO 3 -->
+                    <!-- SIN MATCH -->
                     <div class="result-box result-none">
                         <span class="badge badge-red">❌ SIN COINCIDENCIAS</span>
                         <div class="chat" style="margin-top: 15px; text-align: left; font-size: 0.9em; background: #ffcdd2;">
                             <div class="chat-label">Chapatin:</div>
-                            <strong>🔍 Analizando requisitos...</strong><br><br>
-                            No tengo algo que se ajuste<br>perfecto ahora 😔<br><br>
-                            <strong>¡PERO!</strong> Te conecto con<br><strong>GABI</strong> 👩‍💼<br>
+                            <strong>No encontré algo perfecto 😔</strong><br><br>
+                            Te conecto con <strong>GABI</strong> 👩‍💼<br>
                             Ella tiene opciones exclusivas!<br><br>
                             <div style="background: #ffebee; padding: 10px; border-radius: 8px; text-align: center;">
                                 <strong>⏱️ Gabi te escribe en 30 min</strong>
                             </div>
                         </div>
                         <div style="margin-top: 15px; font-size: 0.85em; background: #fff; padding: 10px; border-radius: 10px;">
-                            <strong>Directo a:</strong> Escalamiento humano<br>
-                            Gabi recibe todo el perfil del cliente
+                            <strong>Directo a:</strong> Escalamiento humano
                         </div>
                     </div>
                 </div>
@@ -719,7 +798,7 @@
             <!-- CIERRE -->
             <div class="box human">
                 <div class="box-title">
-                    <span>👩‍💼</span> ESCALAMIENTO A HUMANO (Gabi)
+                    <span>👩‍💼</span> ESCALAMIENTO A GABI (Humano)
                 </div>
                 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
@@ -728,13 +807,13 @@
                         ╔══════════════════════════════════╗<br>
                         ║ 🔥🔥🔥 LEAD CALIENTE 🔥🔥🔥 ║<br>
                         ╠══════════════════════════════════╣<br>
-                        ║ 👤 Carlos Martínez ║<br>
-                        ║ 📱 442-123-4567 ║<br>
-                        ║ 📍 Zona: Milenio III ║<br>
-                        ║ 💰 Presupuesto: $8k-$10k ║<br>
-                        ║ 🛏️ 2 rec | 🐶 Pet Friendly ║<br>
-                        ║ 🎯 Match: 95% compatible ║<br>
-                        ║ 📅 Cita: Mañana 10am ║<br>
+                        ║ 👤 [Nombre del Cliente] ║<br>
+                        ║ 📱 442-XXX-XXXX ║<br>
+                        ║ 📍 Zona: [Milenio/Otra] ║<br>
+                        ║ 💰 Presupuesto: [$Rango] ║<br>
+                        ║ 🛏️ [Recámaras] | 🐶 [Pet] ║<br>
+                        ║ 🎯 Match: [X%] o Sin match ║<br>
+                        ║ 📅 Cita: [Día/Hora] ║<br>
                         ╚══════════════════════════════════╝<br><br>
                         💬 Historial completo adjunto
                     </div>
@@ -755,28 +834,37 @@
             <!-- FIN -->
             <div class="box end-box">
                 <div class="box-title" style="justify-content: center; color: white;">
-                    <span>🎉</span> FIN DEL FLUJO - CLIENTE ATENDIDO
+                    <span>🎉</span> FIN - CLIENTE ATENDIDO
                 </div>
             </div>
 
         </div>
 
-        <!-- RESUMEN -->
+        <!-- RESUMEN FINAL -->
         <div style="background: rgba(255,255,255,0.95); padding: 30px; border-radius: 20px; margin-top: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
-            <h2 style="text-align: center; margin-bottom: 20px; color: #333;">📊 RESUMEN DE DECISIONES</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+            <h2 style="text-align: center; margin-bottom: 20px; color: #333;">📊 RESUMEN DE FLUJOS</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                
                 <div style="padding: 20px; background: #e8f5e9; border-radius: 15px; border-left: 5px solid #4caf50;">
-                    <h4 style="color: #2e7d32;">✅ SI ESTÁ DISPONIBLE</h4>
-                    <p>→ Muestra info + fotos<br>→ Pregunta si quiere agendar<br>→ Si SÍ: Directo a Gabi<br>→ Si NO: Va a filtros de 6 bloques</p>
+                    <h4 style="color: #2e7d32;">✅ DISPONIBLE + SÍ</h4>
+                    <p>→ Muestra info<br>→ Agendar directo<br>→ Gabi confirma<br><strong>(Sin filtros)</strong></p>
                 </div>
+
+                <div style="padding: 20px; background: #e0f7fa; border-radius: 15px; border-left: 5px solid #00bcd4;">
+                    <h4 style="color: #00838f;">🚀 CERCA DE MILENIO</h4>
+                    <p>→ Busca en BD zona Milenio<br>→ Propone opciones disponibles<br>→ Si le gusta: Agendar<br><strong>(Sin 6 bloques)</strong></p>
+                </div>
+
+                <div style="padding: 20px; background: #f3e5f5; border-radius: 15px; border-left: 5px solid #9c27b0;">
+                    <h4 style="color: #6a1b9a;">🎛️ OTRA ZONA</h4>
+                    <p>→ 6 bloques de filtrado<br>→ IA analiza perfil<br>→ Busca match<br>→ Propone o escala<br><strong>(Perfilado completo)</strong></p>
+                </div>
+
                 <div style="padding: 20px; background: #ffebee; border-radius: 15px; border-left: 5px solid #f44336;">
-                    <h4 style="color: #c62828;">❌ SI NO ESTÁ DISPONIBLE</h4>
-                    <p>→ Dice "Ya fue rentada"<br>→ Pregunta: ¿Similar aquí u otra zona?<br>→ Ambas opciones van a filtros de 6 bloques<br>→ IA busca alternativas</p>
+                    <h4 style="color: #c62828;">❌ NO HAY OPCIONES</h4>
+                    <p>→ En cualquier flujo<br>→ Si no hay más disponibles<br>→ "Te contacto con Gabi"<br>→ Escalamiento humano</p>
                 </div>
-                <div style="padding: 20px; background: #fff3e0; border-radius: 15px; border-left: 5px solid #ff9800;">
-                    <h4 style="color: #ef6c00;">🎛️ DESPUÉS DE LOS 6 BLOQUES</h4>
-                    <p>→ IA analiza todo<br>→ Busca match 90%+, 70-89%, o ninguno<br>→ Si encuentra: Propone y pregunta<br>→ Si no: Escalar a Gabi directo</p>
-                </div>
+
             </div>
         </div>
     </div>
